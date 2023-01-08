@@ -1,6 +1,7 @@
 const { REST } = require('@discordjs/rest');
 const { Routes } = require('discord-api-types/v9');
 const fs = require('fs');
+const config = require('../../../config.json');
 
 module.exports = (client) => {
     client.handleCommands = async () => {
@@ -21,7 +22,7 @@ module.exports = (client) => {
         }
 
         const clientId = '1060323640991821864';
-        const rest = new REST({ version: '9' }).setToken(process.env.token);
+        const rest = new REST({ version: '9' }).setToken(config.botToken);
         try {
             console.log('Started refreshing application (/) commands.');
 

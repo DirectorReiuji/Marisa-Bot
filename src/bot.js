@@ -1,5 +1,4 @@
-require('dotenv').config();
-const { token, databaseToken } = process.env;
+const config = require('../config.json');
 const { connect } = require('mongoose');
 const Discord = require('discord.js');
 const fs = require('fs');
@@ -30,7 +29,7 @@ for (const folder of functionFolders) {
 client.handleEvents();
 client.handleCommands();
 client.handleComponents();
-client.login(token);
+client.login(config.botToken);
 (async () => {
-    await connect(databaseToken).catch(console.error);
+    await connect(config.databaseToken).catch(console.error);
 })();

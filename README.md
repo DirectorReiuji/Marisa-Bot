@@ -19,6 +19,6 @@
 ### 📝 How do I run Marisa Bot?
 ***For testing/personal purposes, you can simply run Marisa Bot's source code by following these simple steps***
 1. Open a terminal and run `npm i` to install all of the modules.
-2. Insert your own bot token and MongoDB tokens within `.env` file.
+2. Insert your own bot token and MongoDB tokens within `config.json` file.
     - For MongoDB, simply create a free Atlas server and link it through the `application` option on MongoDB.
 3. Then do `node run start:dev` to run.

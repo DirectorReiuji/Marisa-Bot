@@ -1,6 +1,5 @@
 const Guild = require('../../schemas/guild');
 const mongoose = require('mongoose');
-const _ = require('lodash');
 
 module.exports = {
     name: 'interactionCreate',
@@ -21,55 +20,34 @@ module.exports = {
                 });
             }
         } else if (interaction.isButton()) {
+            const { customId } = interaction;
 
-            let guildSettings = await Guild.findOne({ guildID: interaction.guild.id });
-            if (!guildSettings) {
-                guildSettings = new Guild({
-                    _id: mongoose.Types.ObjectId(),
-                    guildID: interaction.guild.id
-                });
-                await guildSettings.save().catch(console.error);
-            }
+            if (customId == 'verify') {
+                let guildSettings = await Guild.findOne({ guildID: interaction.guild.id });
+                if (!guildSettings) {
+                    guildSettings = new Guild({
+                        _id: mongoose.Types.ObjectId(),
+                        guildID: interaction.guild.id
+                    });
+                    await guildSettings.save().catch(console.error);
+                }
 
-            const verifiedRole = interaction.guild.roles.cache.find(role => role.id === guildSettings.verified_role_id);
+                const verifiedRole = interaction.guild.roles.cache.find(role => role.id === guildSettings.verified_role_id);
 
-            if (!verifiedRole) {
-                interaction.reply({
-                    content: `❌ - Failed to assign a verify role. Please contact an admin immediately.`,
-                    ephemeral: true
-                })
-            } else {
-                interaction.member.roles.add(verifiedRole).then((member) => {
+                if (!verifiedRole) {
                     interaction.reply({
-                        content: `✅ - Successfully assigned ${verifiedRole} to **${interaction.user.username}**.`,
+                        content: `❌ - Failed to assign a verify role. Please contact an admin immediately.`,
                         ephemeral: true
                     })
-                })
+                } else {
+                    interaction.member.roles.add(verifiedRole).then((member) => {
+                        interaction.reply({
+                            content: `✅ - Successfully assigned ${verifiedRole} to **${interaction.user.username}**.`,
+                            ephemeral: true
+                        })
+                    })
+                }
             }
-
-            /*
-            const { buttons } = client;
-            const { customId } = interaction;
-            const button = buttons.get(customId);
-            if (!button) return new Error('No button found.');
-
-            try {
-                await button.execute(interaction, client);
-            } catch (error) {
-                console.error(error);
-            }
-            */
-        } else if (interaction.isStringSelectMenu()) {
-            const { selectMenus } = client;
-            const { customId } = interaction;
-            const menu = selectMenus.get(customId);
-            if (!menu) return new Error('No menu found.');
-
-            try {
-                await menu.execute(interaction, client);
-            } catch (error) {
-                console.error(error);
-            }
-        }
+        } 
     }
 }

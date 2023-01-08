@@ -1,5 +1,5 @@
 const { SlashCommandBuilder } = require('@discordjs/builders');
-const { PermissionFlagsBits } = require('discord.js');
+const { PermissionFlagsBits, EmbedBuilder } = require('discord.js');
 
 module.exports = {
     data: new SlashCommandBuilder()
@@ -23,12 +23,19 @@ module.exports = {
     async execute(interaction, client) {
         const channel = interaction.channel;
 
-        const message = interaction.options.getInteger('amount');
+        const amount = interaction.options.getInteger('amount');
         const user = interaction.options.getUser('user');
 
         const messages = await channel.messages.fetch({
-            limit: amount +1
+            limit: amount + 1
         });
+
+        const embed = new EmbedBuilder();
+
+        embed.setColor('DarkRed');
+        embed.setAuthor({ name: interaction.guild.name });
+        embed.setFooter({ text: interaction.guild.name, iconURL: interaction.guild.iconURL() });
+        embed.setTimestamp(Date.now());
 
         if (user) {
             let i = 0;
@@ -48,6 +55,29 @@ module.exports = {
                 });
             });
 
+            embed.setDescription(`**🗑️ ${amount} of ${user.username}'s Messages Deleted in:** <#${interaction.channel.id}>`);
+            embed.addFields(
+                {
+                    name: 'Moderator',
+                    value: `<@${interaction.user.id}>`
+                },
+                {
+                    name: 'Moderator ID',
+                    value: `\`${interaction.user.id}\``
+                },
+                {
+                    name: 'User',
+                    value: `<@${user.id}>`
+                },
+                {
+                    name: 'User ID',
+                    value: `\`${user.id}\``
+                },
+                {
+                    name: 'Amount Deleted',
+                    value: `${amount} messages`
+                }
+            );
         } else {
             await channel.bulkDelete(amount, true).then(messages => {
                 interaction.reply({
@@ -55,6 +85,24 @@ module.exports = {
                     ephemeral: true
                 });
             });
-        }            
+
+            embed.setDescription(`**🗑️ ${amount} Messages Deleted in:** <#${interaction.channel.id}>`);
+            embed.addFields(
+                {
+                    name: 'Moderator',
+                    value: `<@${interaction.user.id}>`
+                },
+                {
+                    name: 'Moderator ID',
+                    value: `\`${interaction.user.id}\``
+                },
+                {
+                    name: 'Amount Deleted',
+                    value: `${amount} messages`
+                }
+            );
+        }
+
+        client.sendLog(interaction.guild, embed, 'mod');
     }
 };

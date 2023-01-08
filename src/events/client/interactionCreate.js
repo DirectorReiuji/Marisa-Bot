@@ -18,13 +18,13 @@ module.exports = {
             }
         } else if (interaction.isButton()) {
 
-            const verifiedRole = interaction.guild.roles.cache.find(role => role.name === 'Verified');
+            const verifiedRole = interaction.guild.roles.cache.find(role => role.name === 'Identified');
 
             if (!verifiedRole) {
                 interaction.guild.roles.create({
-                    name: 'Verified',
+                    name: 'Identified',
                     color: [16, 201, 98],
-                    reason: 'Verified role was not found.'
+                    reason: 'Identified role was not found.'
                 });
 
                 interaction.member.roles.add(verifiedRole).then((member) => {

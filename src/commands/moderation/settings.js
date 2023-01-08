@@ -17,6 +17,7 @@ module.exports = {
                     { name: _.startCase('event_log_channel_id'), value: 'event_log_channel_id' },
                     { name: _.startCase('mod_log_channel_id'), value: 'mod_log_channel_id' },
                     { name: _.startCase('verification_channel_id'), value: 'verification_channel_id' },
+                    { name: _.startCase('verified_role_id'), value: 'verified_role_id'}
                 )
         )
         .addStringOption((option) =>
@@ -69,10 +70,17 @@ module.exports = {
                     ],
                 })
             }
-            return interaction.reply({
-                content: `✅ - Successfully saved **${_.startCase(key)}** to \`${interaction.options.getString('value')}\`.`,
+            if (key === 'verification_channel_id'  || key === 'verified_role_id') {
+                return interaction.reply({
+                content: `✅ - Successfully saved **${_.startCase(key)}** to \`${interaction.options.getString('value')}\`. Please make sure to set the other verification settings as well.`,
                 ephemeral: true
             });
+            } else {
+                return interaction.reply({
+                    content: `✅ - Successfully saved **${_.startCase(key)}** to \`${interaction.options.getString('value')}\`.`,
+                    ephemeral: true
+                });
+            }
         }
     }
 };

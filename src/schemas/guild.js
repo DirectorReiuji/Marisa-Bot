@@ -5,6 +5,7 @@ const guildSchema = new Schema({
     event_log_channel_id: { type: String, required: false },
     mod_log_channel_id: { type: String, required: false },
     verification_channel_id: { type: String, required: false },
+    verified_role_id: { type: String, required: false },
 });
 
 module.exports = model("Guild", guildSchema, "guilds");

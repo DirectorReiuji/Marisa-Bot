@@ -1,0 +1,26 @@
+{
+  "name": "marisa-bot",
+  "version": "1.0.0",
+  "description": "An all-in-one community Discord.js bot.",
+  "main": "src/bot.js",
+  "scripts": {
+    "test": "node .",
+    "start:dev": "nodemon ."
+  },
+  "keywords": [],
+  "author": "Marisa Moment#2023",
+  "license": "ISC",
+  "dependencies": {
+    "@discordjs/rest": "^1.5.0",
+    "chalk": "^4.1.2",
+    "discord-api-types": "^0.37.26",
+    "discord.js": "^14.7.1",
+    "discordjs-logger": "^4.0.1",
+    "dotenv": "^16.0.3",
+    "lodash": "^4.17.21",
+    "mongoose": "^6.8.2"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.20"
+  }
+}

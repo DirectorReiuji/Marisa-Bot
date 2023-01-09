@@ -3,6 +3,14 @@ const Discord = require('discord.js');
 module.exports = {
     name: 'guildMemberRemove',
     async execute(member, client) {
+        const auditLogs = await member.guild.fetchAuditLogs({
+            limit: 1
+        });
+
+        const latestLog = auditLogs.entries.first();
+
+        if (latestLog.action === Discord.AuditLogEvent.MemberKick || latestLog.action === Discord.AuditLogEvent.MemberBanAdd) return;
+        
         const embed = new Discord.EmbedBuilder();
 
         embed.setColor('Red');

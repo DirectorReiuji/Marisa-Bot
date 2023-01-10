@@ -16,6 +16,8 @@ module.exports = {
             await guildSettings.save().catch(console.error);
         }
 
+        if (guild.channels.cache.get(guildSettings.member_count_channel_id) === null && guild.channels.cache.get(guildSettings.people_count_channel_id) === null && guild.channels.cache.get(guildSettings.bot_count_channel_id) === null) return;
+
         await guild.channels.cache.get(guildSettings.member_count_channel_id).setName(`Members: ${guild.memberCount}`);
         await guild.channels.cache.get(guildSettings.people_count_channel_id).setName(`People: ${guild.members.cache.filter(m => !m.user.bot).size}`);
         await guild.channels.cache.get(guildSettings.bot_count_channel_id).setName(`Bots: ${guild.members.cache.filter(m => m.user.bot).size}`);

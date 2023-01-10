@@ -3,19 +3,19 @@ const { PermissionFlagsBits, EmbedBuilder } = require('discord.js');
 
 module.exports = {
     data: new SlashCommandBuilder()
-        .setDefaultMemberPermissions(PermissionFlagsBits.KickMembers)
-        .setName('kick')
-        .setDescription('Kick a member from the server.')
+        .setDefaultMemberPermissions(PermissionFlagsBits.BanMembers)
+        .setName('ban')
+        .setDescription('Ban a member from the server.')
         .addUserOption((option) =>
             option
                 .setName('user')
-                .setDescription('User to kick from the server.')
+                .setDescription('User to ban from the server.')
                 .setRequired(true)
         )
         .addStringOption((option) =>
             option
                 .setName('reason')
-                .setDescription('Reasoning for kicking the user.')
+                .setDescription('Reasoning for banning the user.')
                 .setRequired(false)
         ),
     async execute(interaction, client) {
@@ -26,27 +26,26 @@ module.exports = {
 
         if (member.roles.highest.position >= interaction.member.roles.highest.position) {
             interaction.reply({
-                content: '❌ - You cannot kick a member with a higher or equal role than you.',
+                content: '❌ - You cannot ban a member with a higher or equal role than you.',
                 ephemeral: true
             });
 
             return;
         } else {
             interaction.reply({
-                content: `✅ - Successfully kicked ${user.username} from ${interaction.guild.name}.`,
+                content: `✅ - Successfully banned ${user.username} from ${interaction.guild.name}.`,
                 ephemeral: true
             });
         }
 
-        await member.kick(reason)
+        await member.ban({reason})
 
         const embed = new EmbedBuilder();
 
-        embed.setColor('DarkOrange');
+        embed.setColor('DarkRed');
         embed.setAuthor({ name: interaction.guild.name });
         embed.setFooter({ text: interaction.guild.name, iconURL: interaction.guild.iconURL() });
-        embed.setTimestamp(Date.now());
-        embed.setDescription(`**🔨${user.username} has been kicked from ${interaction.guild.name}**`);
+        embed.setDescription(`**🔨${user.username} has been banned from ${interaction.guild.name}**`);
         embed.addFields(
             {
                 name: 'Moderator',
@@ -69,6 +68,7 @@ module.exports = {
                 value: reason || '*No reason given.*'
             }
         );
+        embed.setTimestamp(Date.now());
 
         client.sendLog(interaction.guild, embed, 'mod');
     }

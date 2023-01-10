@@ -37,6 +37,8 @@ module.exports = {
             }
         );
         embed.setFooter({ text: guild.name, iconURL: guild.iconURL() });
+        embed.setTimestamp(Date.now());
+        embed.setImage("https://cdn.discordapp.com/attachments/1061450162544848967/1062183154032590929/marisa-kirisame-touhou.gif");
 
         channelGeneral.send({ embeds: [embed] });
     }

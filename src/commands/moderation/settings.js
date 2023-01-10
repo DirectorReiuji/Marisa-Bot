@@ -17,7 +17,10 @@ module.exports = {
                     { name: _.startCase('event_log_channel_id'), value: 'event_log_channel_id' },
                     { name: _.startCase('mod_log_channel_id'), value: 'mod_log_channel_id' },
                     { name: _.startCase('verification_channel_id'), value: 'verification_channel_id' },
-                    { name: _.startCase('verified_role_id'), value: 'verified_role_id'}
+                    { name: _.startCase('verified_role_id'), value: 'verified_role_id'},
+                    { name: _.startCase('member_count_channel_id'), value: 'member_count_channel_id' },
+                    { name: _.startCase('people_count_channel_id'), value: 'people_count_channel_id' },
+                    { name: _.startCase('bot_count_channel_id'), value: 'bot_count_channel_id' }
                 )
         )
         .addStringOption((option) =>

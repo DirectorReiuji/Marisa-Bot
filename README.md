@@ -11,11 +11,15 @@
     - `Message Updates/Deletion`
     - Etc.
 - Sending webhooks via Marisa
+- Moderation
+- Server stat channels
+- Grab apis for anime and Touhou
+- And more!
 
 ### 🙋‍♂️ How can I help?
 *Simply make a PR to the repo. If it's good enough, then it'll be merged.*
 ### ⚠️ Help! I have an issue!
-*For now, simply contact Marisa Moment#2023 on Discord or join the (WIP) **[support server](https://discord.gg/BxMFPsVerb)**. You can also make an issue on this repo if the error is not fixable (yet).*
+*For now, simply contact Marisa Moment#2023 on Discord or join the **[support server](https://discord.gg/BxMFPsVerb)**. You can also make an issue on this repo if the error is not fixable (yet).*
 ### 📝 How do I run Marisa Bot?
 ***For testing/personal purposes, you can simply run Marisa Bot's source code by following these simple steps***
 1. Open a terminal and run `npm i` to install all of the modules.

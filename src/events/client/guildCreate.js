@@ -21,7 +21,7 @@ module.exports = {
         embed.addFields(
             {
                 name: 'Commands',
-                value: "Use `/` to view all commands. If there's a command missing, it's either because of permissions or the command is unimplemented."
+                value: "Use `/` to view all commands. Also check out `Mhelp` for message reactions. If there's a command missing, it's either because of permissions or the command is unimplemented."
             },
             {
                 name: 'Logging',

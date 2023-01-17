@@ -14,6 +14,7 @@
 - Moderation
 - Server stat channels
 - Grab apis for anime and Touhou
+- React to your message with the tags listed in Mhelp
 - And more!
 
 ### 🙋‍♂️ How can I help?
